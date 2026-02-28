@@ -28,9 +28,9 @@ const App = () => {
       <nav className="fixed top-0 w-full z-50 bg-[#0a0a0c]/80 backdrop-blur-md border-b border-white/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-20 items-center">
-            <div className="flex items-center gap-2">
-              <div className="bg-emerald-500 p-1.5 rounded-lg">
-                <Shield className="w-6 h-6 text-black" strokeWidth={2.5} />
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg overflow-hidden border border-emerald-500/30">
+                <img src="77security.png" alt="77 Security" className="w-full h-full object-cover" onError={(e) => e.target.src='https://placehold.co/100x100/000000/34d399?text=77'} />
               </div>
               <span className="text-2xl font-bold tracking-tighter text-white">77<span className="text-emerald-500">SECURITY</span></span>
             </div>
@@ -53,8 +53,13 @@ const App = () => {
       </nav>
 
       {/* Hero Section */}
-      <section className="pt-40 pb-20 px-4">
-        <div className="max-w-5xl mx-auto text-center">
+      <section className="pt-40 pb-20 px-4 relative overflow-hidden">
+        <div className="max-w-5xl mx-auto text-center relative z-10">
+          <div className="mb-10 inline-block">
+             <div className="w-24 h-24 mx-auto rounded-2xl overflow-hidden border-2 border-emerald-500/50 shadow-[0_0_30px_rgba(16,185,129,0.2)]">
+                <img src="77security.png" alt="77 Security Logo" className="w-full h-full object-cover" />
+             </div>
+          </div>
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-bold uppercase tracking-widest mb-8">
             <Globe className="w-3 h-3" /> Worldwide Threat Sensing
           </div>
@@ -80,10 +85,17 @@ const App = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row gap-12 items-center">
             <div className="flex-1">
-               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold mb-4">
-                 <Activity className="w-3 h-3" /> FLAGSHIP PRODUCT
+               <div className="flex items-center gap-4 mb-6">
+                 <div className="w-16 h-16 rounded-xl overflow-hidden border border-blue-500/30 shadow-lg shadow-blue-500/10">
+                    <img src="omnisense.png" alt="OmniSense Logo" className="w-full h-full object-cover" />
+                 </div>
+                 <div>
+                    <div className="inline-flex items-center gap-2 px-2 py-0.5 rounded bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-bold mb-1 uppercase tracking-wider">
+                      Flagship Product
+                    </div>
+                    <h2 className="text-4xl font-bold text-white tracking-tight">OmniSense</h2>
+                 </div>
                </div>
-               <h2 className="text-4xl font-bold text-white mb-6">Introducing OmniSense</h2>
                <p className="text-lg text-slate-400 mb-6">
                  OmniSense is our high-performance ingestion engine designed to collect, normalize, and verify threat signals in real-time. It's the brain of the 77 Security network.
                </p>
@@ -159,7 +171,7 @@ pub async fn process_signal(signal: Signal) {
             </div>
             <div className="bg-gradient-to-br from-[#16161a] to-[#0a0a0c] border border-white/10 p-8 rounded-3xl relative overflow-hidden">
                <div className="absolute top-0 right-0 p-4 opacity-10">
-                  <Github className="w-40 h-40" />
+                  <img src="77security.png" alt="" className="w-40 h-40 opacity-20 filter grayscale" />
                </div>
                <div className="relative z-10">
                  <div className="flex items-center gap-4 mb-8">
@@ -270,9 +282,9 @@ pub async fn process_signal(signal: Signal) {
       {/* Footer */}
       <footer className="py-20 border-t border-white/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="flex items-center justify-center gap-2 mb-8">
-            <div className="bg-emerald-500 p-1.5 rounded-lg">
-              <Shield className="w-5 h-5 text-black" />
+          <div className="flex items-center justify-center gap-3 mb-8">
+            <div className="w-8 h-8 rounded overflow-hidden border border-emerald-500/30">
+              <img src="77security.png" alt="77 Security" className="w-full h-full object-cover" />
             </div>
             <span className="text-xl font-bold text-white tracking-tighter">77SECURITY</span>
           </div>
