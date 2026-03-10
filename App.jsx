@@ -3,7 +3,7 @@ import {
   Shield, Github, Server, Users, Unlock, Globe, Eye, ChevronRight, 
   Database, Lock, Terminal, ArrowRight, CheckCircle2, Code, Zap, 
   Activity, Cpu, LogIn, User, Key, LogOut, Mail, Copy, X, Loader2,
-  Building2, MapPin, Save
+  Building2, MapPin, Save, ShieldAlert
 } from 'lucide-react';
 
 // Configuration
@@ -11,7 +11,6 @@ const API_BASE = "https://identity.77security.com/api";
 
 // Standardized Lists (Aligned with init_db.sql)
 const INDUSTRIES = [
-
   { key: "CHEMICAL", name: "Chemical Industry" },
   { key: "CRIT_ENERGY", name: "Energy & Utilities" },
   { key: "CRIT_WATER", name: "Water & Waste Management" },
@@ -36,7 +35,7 @@ const INDUSTRIES = [
 ];
 
 const COUNTRIES = [
-{ code: "AF", name: "Afghanistan" },
+  { code: "AF", name: "Afghanistan" },
   { code: "AX", name: "Åland Islands" },
   { code: "AL", name: "Albania" },
   { code: "DZ", name: "Algeria" },
@@ -293,12 +292,36 @@ const App = () => {
   const [authModal, setAuthModal] = useState(null); 
   const [newKey, setNewKey] = useState(null); 
   const [formData, setFormData] = useState({ email: '', password: '', industry_key: '', region_code: '' });
-  const [isUpdating, setIsUpdating] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
+  
+  const [verifying, setVerifying] = useState({ status: 'idle', message: '' });
 
   useEffect(() => {
-    checkAuth();
+    const params = new URLSearchParams(window.location.search);
+    const verifyToken = params.get('token');
+    
+    if (verifyToken) {
+      handleVerification(verifyToken);
+    } else {
+      checkAuth();
+    }
   }, []);
+
+  const handleVerification = async (token) => {
+    setVerifying({ status: 'loading', message: 'Validating your security credentials...' });
+    try {
+      const res = await fetch(`${API_BASE}/auth/verify?token=${token}`);
+      const data = await res.json();
+      
+      if (!res.ok) throw new Error(data.error || "Verification failed");
+      
+      setVerifying({ status: 'success', message: data.message });
+      window.history.replaceState({}, document.title, window.location.pathname);
+    } catch (err) {
+      setVerifying({ status: 'error', message: err.message });
+    }
+  };
 
   const checkAuth = async () => {
     try {
@@ -317,32 +340,52 @@ const App = () => {
   const handleAuth = async (e) => {
     e.preventDefault();
     setError('');
+    setIsSubmitting(true);
     const endpoint = authModal === 'login' ? '/auth/login' : '/auth/register';
     
     try {
       const res = await fetch(`${API_BASE}${endpoint}`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
         body: JSON.stringify(formData)
       });
-      const data = await res.json();
+
+      // Handle non-JSON responses gracefully
+      const contentType = res.headers.get("content-type");
+      let data;
+      if (contentType && contentType.indexOf("application/json") !== -1) {
+        data = await res.json();
+      } else {
+        data = { message: await res.text() };
+      }
       
-      if (!res.ok) throw new Error(data.error || "Action failed");
+      if (!res.ok) throw new Error(data.error || data.message || "Action failed");
       
       if (authModal === 'login') {
         setAuthModal(null);
         checkAuth();
       } else {
-        alert("Verification email sent! Please check your inbox.");
+        alert(data.message || "Registration successful! Please check your email to verify.");
         setAuthModal('login');
       }
     } catch (err) {
-      setError(err.message);
+      console.error("Auth Error:", err);
+      // More descriptive error for "Failed to fetch" (usually CORS or Network)
+      if (err.message === "Failed to fetch") {
+        setError("Network error: Verification server unreachable or CORS block. Check console.");
+      } else {
+        setError(err.message);
+      }
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   const updateProfile = async () => {
-    setIsUpdating(true);
+    setIsSubmitting(true);
     try {
       const res = await fetch(`${API_BASE}/user/profile`, {
         method: 'PATCH',
@@ -359,7 +402,7 @@ const App = () => {
     } catch (err) {
       alert("Failed to update profile");
     } finally {
-      setIsUpdating(false);
+      setIsSubmitting(false);
     }
   };
 
@@ -389,10 +432,55 @@ const App = () => {
     alert("Copied to clipboard!");
   };
 
-  if (loading) return <div className="min-h-screen bg-[#0a0a0c] flex items-center justify-center"><Loader2 className="w-8 h-8 animate-spin text-emerald-500" /></div>;
+  if (loading && verifying.status === 'idle') return <div className="min-h-screen bg-[#0a0a0c] flex items-center justify-center"><Loader2 className="w-8 h-8 animate-spin text-emerald-500" /></div>;
 
   return (
     <div className="min-h-screen bg-[#0a0a0c] text-slate-200 font-sans selection:bg-emerald-500/30">
+      
+      {verifying.status !== 'idle' && (
+        <div className="fixed inset-0 z-[200] flex items-center justify-center bg-[#0a0a0c] p-6 text-center">
+          <div className="max-w-md w-full bg-[#16161a] border border-white/10 rounded-3xl p-10 shadow-2xl">
+            {verifying.status === 'loading' && (
+              <div className="space-y-6">
+                <Loader2 className="w-12 h-12 animate-spin text-emerald-500 mx-auto" />
+                <h2 className="text-2xl font-bold text-white">Verifying Identity</h2>
+                <p className="text-slate-400">{verifying.message}</p>
+              </div>
+            )}
+            {verifying.status === 'success' && (
+              <div className="space-y-6">
+                <div className="w-16 h-16 bg-emerald-500/20 rounded-full flex items-center justify-center mx-auto">
+                  <CheckCircle2 className="w-8 h-8 text-emerald-500" />
+                </div>
+                <h2 className="text-2xl font-bold text-white">Node Verified</h2>
+                <p className="text-slate-400">{verifying.message}</p>
+                <button 
+                  onClick={() => { setVerifying({ status: 'idle' }); setAuthModal('login'); }}
+                  className="w-full bg-emerald-500 text-black py-4 rounded-xl font-bold hover:bg-emerald-400 transition-all"
+                >
+                  Proceed to Login
+                </button>
+              </div>
+            )}
+            {verifying.status === 'error' && (
+              <div className="space-y-6">
+                <div className="w-16 h-16 bg-red-500/20 rounded-full flex items-center justify-center mx-auto">
+                  <ShieldAlert className="w-8 h-8 text-red-500" />
+                </div>
+                <h2 className="text-2xl font-bold text-white">Verification Failed</h2>
+                <p className="text-slate-400">{verifying.message}</p>
+                <button 
+                  onClick={() => setVerifying({ status: 'idle' })}
+                  className="w-full bg-white/10 text-white py-4 rounded-xl font-bold hover:bg-white/20 transition-all"
+                >
+                  Back to Home
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
       <nav className="fixed top-0 w-full z-50 bg-[#0a0a0c]/80 backdrop-blur-md border-b border-white/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-20 items-center">
@@ -448,10 +536,10 @@ const App = () => {
                   </div>
                   <button 
                     onClick={updateProfile}
-                    disabled={isUpdating}
+                    disabled={isSubmitting}
                     className="flex items-center gap-2 text-xs font-bold bg-emerald-500 text-black px-3 py-1.5 rounded-lg hover:bg-emerald-400 disabled:opacity-50"
                   >
-                    {isUpdating ? <Loader2 className="w-3 h-3 animate-spin" /> : <Save className="w-3 h-3" />}
+                    {isSubmitting ? <Loader2 className="w-3 h-3 animate-spin" /> : <Save className="w-3 h-3" />}
                     Save Changes
                   </button>
                 </div>
@@ -550,7 +638,6 @@ const App = () => {
               </div>
             </div>
           </section>
-          {/* Landing sections omitted for brevity but preserved in logic */}
         </>
       )}
 
@@ -627,7 +714,11 @@ const App = () => {
                 </div>
               )}
 
-              <button className="w-full bg-emerald-500 hover:bg-emerald-400 text-black py-4 rounded-xl font-bold mt-4 transition-all">
+              <button 
+                disabled={isSubmitting}
+                className="w-full bg-emerald-500 hover:bg-emerald-400 text-black py-4 rounded-xl font-bold mt-4 transition-all flex items-center justify-center gap-2"
+              >
+                {isSubmitting && <Loader2 className="w-4 h-4 animate-spin" />}
                 {authModal === 'login' ? 'Authenticate' : 'Provision Node Account'}
               </button>
             </form>
