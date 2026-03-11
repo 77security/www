@@ -297,6 +297,18 @@ const App = () => {
   
   const [verifying, setVerifying] = useState({ status: 'idle', message: '' });
 
+  const secureFetch = (url, options = {}) => {
+    return fetch(url, {
+      ...options,
+      credentials: 'include', // <--- THIS IS THE FIX
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        ...options.headers,
+      },
+    });
+  };
+
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const verifyToken = params.get('token');
@@ -311,7 +323,7 @@ const App = () => {
   const handleVerification = async (token) => {
     setVerifying({ status: 'loading', message: 'Validating your security credentials...' });
     try {
-      const res = await fetch(`${API_BASE}/auth/verify?token=${token}`);
+      const res = await secureFetch(`${API_BASE}/auth/verify?token=${token}`);
       const data = await res.json();
       
       if (!res.ok) throw new Error(data.error || "Verification failed");
@@ -325,7 +337,7 @@ const App = () => {
 
   const checkAuth = async () => {
     try {
-      const res = await fetch(`${API_BASE}/user/me`);
+      const res = await secureFetch(`${API_BASE}/user/me`);
       if (res.ok) {
         const data = await res.json();
         setUser(data);
@@ -344,7 +356,7 @@ const App = () => {
     const endpoint = authModal === 'login' ? '/auth/login' : '/auth/register';
     
     try {
-      const res = await fetch(`${API_BASE}${endpoint}`, {
+      const res = await secureFetch(`${API_BASE}${endpoint}`, {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
@@ -387,7 +399,7 @@ const App = () => {
   const updateProfile = async () => {
     setIsSubmitting(true);
     try {
-      const res = await fetch(`${API_BASE}/user/profile`, {
+      const res = await secureFetch(`${API_BASE}/user/profile`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -408,7 +420,7 @@ const App = () => {
 
   const generateKey = async () => {
     try {
-      const res = await fetch(`${API_BASE}/keys/generate`, {
+      const res = await secureFetch(`${API_BASE}/keys/generate`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: `Key_${Date.now()}`, scopes: { omnisense: ["read"] } })
