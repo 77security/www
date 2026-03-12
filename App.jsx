@@ -9,7 +9,7 @@ import {
 // Configuration
 const API_BASE = "https://identity.77security.com/api";
 
-// Standardized Lists (Aligned with init_db.sql)
+// Standardized Lists
 const INDUSTRIES = [
   { key: "CHEMICAL", name: "Chemical Industry" },
   { key: "CRIT_ENERGY", name: "Energy & Utilities" },
@@ -290,7 +290,6 @@ const App = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [authModal, setAuthModal] = useState(null); 
-  const [newKey, setNewKey] = useState(null); 
   const [formData, setFormData] = useState({ email: '', password: '', industry_key: '', region_code: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
@@ -309,7 +308,6 @@ const App = () => {
     });
   };
 
-  // NEW: Effect to handle routing based on URL path
   useEffect(() => {
     const handleRoute = () => {
       const path = window.location.pathname;
@@ -322,10 +320,7 @@ const App = () => {
       }
     };
 
-    // Run on mount
     handleRoute();
-
-    // Listen for back/forward navigation
     window.addEventListener('popstate', handleRoute);
     return () => window.removeEventListener('popstate', handleRoute);
   }, []);
@@ -404,18 +399,18 @@ const App = () => {
         openAuthModal('login');
       }
     } catch (err) {
-      console.error("Auth Error:", err);
-      if (err.message === "Failed to fetch") {
-        setError("Network error: Verification server unreachable or CORS block. Check console.");
-      } else {
-        setError(err.message);
-      }
+      setError(err.message);
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  // Helper to update state and URL
+  const handleLogout = async () => {
+    await secureFetch(`${API_BASE}/auth/logout`, { method: 'POST' });
+    setUser(null);
+    window.location.href = "/";
+  };
+
   const openAuthModal = (type) => {
     const path = type === 'login' ? '/login' : '/signup';
     window.history.pushState({}, '', path);
@@ -449,32 +444,6 @@ const App = () => {
     }
   };
 
-  const generateKey = async () => {
-    try {
-      const res = await secureFetch(`${API_BASE}/keys/generate`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: `Key_${Date.now()}`, scopes: { omnisense: ["read"] } })
-      });
-      const data = await res.json();
-      if (res.ok) {
-        setNewKey(data.api_key);
-      }
-    } catch (err) {
-      alert("Failed to generate key");
-    }
-  };
-
-  const copyToClipboard = (text) => {
-    const el = document.createElement('textarea');
-    el.value = text;
-    document.body.appendChild(el);
-    el.select();
-    document.execCommand('copy');
-    document.body.removeChild(el);
-    alert("Copied to clipboard!");
-  };
-
   if (loading && verifying.status === 'idle') return <div className="min-h-screen bg-[#0a0a0c] flex items-center justify-center"><Loader2 className="w-8 h-8 animate-spin text-emerald-500" /></div>;
 
   return (
@@ -495,7 +464,7 @@ const App = () => {
                 <div className="w-16 h-16 bg-emerald-500/20 rounded-full flex items-center justify-center mx-auto">
                   <CheckCircle2 className="w-8 h-8 text-emerald-500" />
                 </div>
-                <h2 className="text-2xl font-bold text-white">Node Verified</h2>
+                <h2 className="text-2xl font-bold text-white">Identity Verified</h2>
                 <p className="text-slate-400">{verifying.message}</p>
                 <button 
                   onClick={() => { setVerifying({ status: 'idle' }); openAuthModal('login'); }}
@@ -535,7 +504,7 @@ const App = () => {
             </div>
             
             <div className="hidden md:flex items-center gap-8 text-sm font-medium">
-              <a href="#omnisense" className="hover:text-emerald-400 transition-colors">OmniSense</a>
+              <a href="https://omnisense.77security.com" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-400 transition-colors">OmniSense</a>
               <a href="#transparency" className="hover:text-emerald-400 transition-colors">Transparency</a>
               <a href="#ownership" className="hover:text-emerald-400 transition-colors">Data Ownership</a>
               
@@ -545,7 +514,7 @@ const App = () => {
                     <User className="w-4 h-4" />
                     <span className="text-xs font-bold uppercase tracking-wider">{user.email.split('@')[0]}</span>
                   </div>
-                  <button onClick={() => window.location.reload()} className="text-slate-400 hover:text-white transition-colors">
+                  <button onClick={handleLogout} className="text-slate-400 hover:text-white transition-colors">
                     <LogOut className="w-5 h-5" />
                   </button>
                 </div>
@@ -566,16 +535,16 @@ const App = () => {
         <main className="pt-32 pb-20 px-4">
           <div className="max-w-4xl mx-auto">
             <div className="mb-12">
-              <h2 className="text-3xl font-bold text-white mb-2">Node Operator Portal</h2>
-              <p className="text-slate-400">Configure your environmental metadata for verified threat sensing.</p>
+              <h2 className="text-3xl font-bold text-white mb-2">User Portal</h2>
+              <p className="text-slate-400">Manage your profile and environmental metadata for verified threat sensing.</p>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-8">
+            <div className="grid md:grid-cols-1 gap-8">
               <div className="bg-[#16161a] border border-white/10 rounded-2xl p-8">
                 <div className="flex items-center justify-between mb-6">
                   <div className="flex items-center gap-4">
                     <div className="p-3 bg-emerald-500/20 rounded-xl"><User className="text-emerald-400" /></div>
-                    <h3 className="text-xl font-bold text-white">Identity</h3>
+                    <h3 className="text-xl font-bold text-white">Identity Profile</h3>
                   </div>
                   <button 
                     onClick={updateProfile}
@@ -593,7 +562,7 @@ const App = () => {
                   </div>
                   
                   <div className="space-y-1.5">
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500">TI Sector (Standardized)</span>
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500">Industry Sector</span>
                     <select 
                       value={user.industry_key}
                       onChange={(e) => setUser({...user, industry_key: e.target.value})}
@@ -616,39 +585,12 @@ const App = () => {
                 </div>
               </div>
 
-              <div className="bg-[#16161a] border border-emerald-500/20 rounded-2xl p-8">
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="p-3 bg-blue-500/20 rounded-xl"><Key className="text-blue-400" /></div>
-                  <h3 className="text-xl font-bold text-white">Security Keys</h3>
-                </div>
-                
-                {newKey ? (
-                  <div className="bg-emerald-500/10 border border-emerald-500/30 p-4 rounded-xl mb-4">
-                    <p className="text-xs text-emerald-400 font-bold mb-2 uppercase tracking-widest text-center">Zero-Knowledge Key Generated</p>
-                    <div className="flex items-center gap-2 bg-black/40 p-3 rounded-lg font-mono text-xs overflow-hidden text-emerald-200 border border-white/5">
-                      <span className="truncate flex-1">{newKey}</span>
-                      <button onClick={() => copyToClipboard(newKey)} className="shrink-0 text-emerald-400 hover:text-white p-1">
-                        <Copy className="w-4 h-4" />
-                      </button>
-                    </div>
-                    <button onClick={() => setNewKey(null)} className="w-full mt-4 py-2 bg-emerald-500 text-black text-xs font-bold rounded-lg uppercase tracking-wider">I have stored this safely</button>
-                  </div>
-                ) : (
-                  <button 
-                    onClick={generateKey}
-                    className="w-full py-10 border-2 border-dashed border-white/10 rounded-xl text-slate-400 hover:border-emerald-500/50 hover:text-emerald-400 transition-all group flex flex-col items-center gap-3"
-                  >
-                    <div className="p-3 bg-white/5 rounded-full group-hover:bg-emerald-500/10 transition-colors">
-                      <Zap className="w-6 h-6" />
-                    </div>
-                    <span className="font-bold">Provision New Access Key</span>
-                  </button>
-                )}
-                <div className="mt-6 p-4 bg-blue-500/5 border border-blue-500/10 rounded-xl">
-                  <p className="text-[10px] leading-relaxed text-slate-500 italic">
-                    API keys are hashed using SHA-256 and stored as BYTEA. 77 Security does not store plaintext keys. Loss of a key requires generating a new one.
+              <div className="bg-[#16161a]/50 border border-white/5 rounded-2xl p-8 text-center py-12">
+                  <Activity className="w-12 h-12 text-emerald-500/20 mx-auto mb-4" />
+                  <h3 className="text-lg font-bold text-white mb-2">OmniSense Integration</h3>
+                  <p className="text-slate-500 text-sm max-w-sm mx-auto">
+                    Advanced security features including API key provisioning and real-time telemetry will be enabled shortly.
                   </p>
-                </div>
               </div>
             </div>
           </div>
@@ -678,6 +620,96 @@ const App = () => {
                 >
                   Join the Network <ArrowRight className="w-5 h-5" />
                 </button>
+                <a 
+                  href="https://omnisense.77security.com" 
+                  target="_blank"
+                  className="bg-white/5 hover:bg-white/10 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all flex items-center justify-center gap-2 border border-white/10"
+                >
+                  Explore OmniSense
+                </a>
+              </div>
+            </div>
+          </section>
+
+          {/* New Sections Added Back */}
+          <section id="transparency" className="py-24 px-4 bg-[#111115]/50 border-y border-white/5">
+            <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+              <div>
+                <div className="w-12 h-12 bg-emerald-500/20 rounded-xl flex items-center justify-center mb-6">
+                  <Eye className="text-emerald-400" />
+                </div>
+                <h2 className="text-3xl font-bold text-white mb-6">Radical Transparency</h2>
+                <p className="text-slate-400 text-lg leading-relaxed mb-6">
+                  We believe security works best when it's open. 77 Security provides a verifiable foundation where threat intelligence is standardized, not siloed.
+                </p>
+                <ul className="space-y-4">
+                  {[
+                    "Open-source data processing pipelines",
+                    "Publicly verifiable industry sector mapping",
+                    "Transparent reporting standards (ISO 3166)",
+                    "Community-driven threat definitions"
+                  ].map((item, i) => (
+                    <li key={i} className="flex items-start gap-3 text-slate-300">
+                      <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="bg-black/50 border border-white/10 rounded-2xl p-2 relative">
+                  <div className="bg-[#16161a] rounded-xl overflow-hidden border border-white/5">
+                    <div className="flex items-center gap-2 p-3 bg-white/5 border-b border-white/5">
+                      <div className="flex gap-1.5">
+                        <div className="w-2.5 h-2.5 rounded-full bg-red-500/50"></div>
+                        <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/50"></div>
+                        <div className="w-2.5 h-2.5 rounded-full bg-green-500/50"></div>
+                      </div>
+                      <div className="text-[10px] font-mono text-slate-500 uppercase tracking-widest ml-4">Transparency-Core / Public-API</div>
+                    </div>
+                    <div className="p-6 font-mono text-sm space-y-2">
+                      <div className="text-emerald-500">GET /api/v1/threats/global</div>
+                      <div className="text-slate-400">{`{`}</div>
+                      <div className="text-slate-400 ml-4">"status": "verified",</div>
+                      <div className="text-slate-400 ml-4">"standard": "ISO-3166-2",</div>
+                      <div className="text-slate-400 ml-4">"sectors": ["FINANCE", "TECH"],</div>
+                      <div className="text-emerald-400 ml-4">"source_verified": true</div>
+                      <div className="text-slate-400">{`}`}</div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="ownership" className="py-24 px-4">
+            <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center flex-row-reverse">
+              <div className="order-2 md:order-1">
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="p-6 bg-[#16161a] border border-white/10 rounded-2xl">
+                    <Database className="w-8 h-8 text-blue-400 mb-4" />
+                    <h4 className="text-white font-bold mb-2">Silo-Free</h4>
+                    <p className="text-xs text-slate-500 leading-relaxed">Your data remains your property, formatted to global standards.</p>
+                  </div>
+                  <div className="p-6 bg-[#16161a] border border-white/10 rounded-2xl">
+                    <Unlock className="w-8 h-8 text-emerald-400 mb-4" />
+                    <h4 className="text-white font-bold mb-2">Portability</h4>
+                    <p className="text-xs text-slate-500 leading-relaxed">Export and integrate intelligence with any security stack.</p>
+                  </div>
+                </div>
+              </div>
+              <div className="order-1 md:order-2">
+                <div className="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center mb-6">
+                  <ShieldAlert className="text-blue-400" />
+                </div>
+                <h2 className="text-3xl font-bold text-white mb-6">True Data Ownership</h2>
+                <p className="text-slate-400 text-lg leading-relaxed mb-6">
+                  77 Security is a conduit, not a cage. You maintain absolute control over your environmental telemetry while contributing to a global immune system.
+                </p>
+                <div className="flex gap-4">
+                   <div className="flex-1 p-4 border border-emerald-500/20 bg-emerald-500/5 rounded-xl">
+                      <div className="text-emerald-400 font-bold mb-1">Zero Lock-in</div>
+                      <div className="text-xs text-slate-400 italic leading-snug">We provide the protocols, you provide the insight.</div>
+                   </div>
+                </div>
               </div>
             </div>
           </section>
@@ -691,15 +723,15 @@ const App = () => {
             <button onClick={closeAuthModal} className="absolute top-6 right-6 text-slate-500 hover:text-white transition-colors"><X /></button>
             
             <div className="text-center mb-8">
-              <h3 className="text-2xl font-bold text-white mb-2">{authModal === 'login' ? 'Identity Portal' : 'Register Node'}</h3>
-              <p className="text-slate-400 text-sm">Secure access via Zero-Knowledge principles.</p>
+              <h3 className="text-2xl font-bold text-white mb-2">{authModal === 'login' ? 'User Login' : 'Register Account'}</h3>
+              <p className="text-slate-400 text-sm">Access the 77 Security Intelligence Network.</p>
             </div>
 
             {error && <div className="mb-4 p-3 bg-red-500/10 border border-red-500/20 text-red-400 text-xs rounded-lg text-center">{error}</div>}
 
             <form onSubmit={handleAuth} className="space-y-4">
               <div className="space-y-1">
-                <label className="text-[10px] font-bold uppercase tracking-widest text-slate-500 ml-1">Work Email</label>
+                <label className="text-[10px] font-bold uppercase tracking-widest text-slate-500 ml-1">Email</label>
                 <div className="relative">
                   <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
                   <input 
@@ -711,7 +743,7 @@ const App = () => {
               </div>
 
               <div className="space-y-1">
-                <label className="text-[10px] font-bold uppercase tracking-widest text-slate-500 ml-1">Security Key/Password</label>
+                <label className="text-[10px] font-bold uppercase tracking-widest text-slate-500 ml-1">Password</label>
                 <div className="relative">
                   <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
                   <input 
@@ -722,61 +754,44 @@ const App = () => {
                 </div>
               </div>
 
-              {authModal === 'register' && (
-                <div className="grid grid-cols-1 gap-4 pt-2">
-                  <div className="space-y-1">
-                    <label className="text-[10px] font-bold uppercase tracking-widest text-slate-500 ml-1">TI Industry Sector</label>
-                    <div className="relative">
-                      <Building2 className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 z-10" />
-                      <select 
-                        required
-                        className="w-full bg-black border border-white/10 rounded-xl py-3 pl-12 pr-4 text-sm focus:border-emerald-500 outline-none appearance-none cursor-pointer"
-                        onChange={e => setFormData({...formData, industry_key: e.target.value})}
-                      >
-                        <option value="">Select Sector</option>
-                        {INDUSTRIES.map(i => <option key={i.key} value={i.key}>{i.name}</option>)}
-                      </select>
-                    </div>
-                  </div>
-
-                  <div className="space-y-1">
-                    <label className="text-[10px] font-bold uppercase tracking-widest text-slate-500 ml-1">Operation Region</label>
-                    <div className="relative">
-                      <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 z-10" />
-                      <select 
-                        required
-                        className="w-full bg-black border border-white/10 rounded-xl py-3 pl-12 pr-4 text-sm focus:border-emerald-500 outline-none appearance-none cursor-pointer"
-                        onChange={e => setFormData({...formData, region_code: e.target.value})}
-                      >
-                        <option value="">Select Region</option>
-                        {COUNTRIES.map(c => <option key={c.code} value={c.code}>{c.name}</option>)}
-                      </select>
-                    </div>
-                  </div>
-                </div>
-              )}
-
               <button 
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-emerald-500 hover:bg-emerald-400 text-black py-4 rounded-xl font-bold transition-all mt-4 flex items-center justify-center gap-2"
+                className="w-full bg-emerald-500 text-black py-4 rounded-xl font-bold hover:bg-emerald-400 transition-all flex items-center justify-center gap-2"
               >
-                {isSubmitting ? <Loader2 className="w-5 h-5 animate-spin" /> : (authModal === 'login' ? 'Authorize Access' : 'Initialize Node')}
+                {isSubmitting ? <Loader2 className="w-5 h-5 animate-spin" /> : (authModal === 'login' ? 'Login' : 'Create Account')}
               </button>
             </form>
 
-            <div className="mt-6 text-center">
-              <button 
-                onClick={() => openAuthModal(authModal === 'login' ? 'register' : 'login')}
-                className="text-slate-500 text-xs hover:text-emerald-400 transition-colors"
-              >
-                {authModal === 'login' ? "Need a Node ID? Join the network" : "Already registered? Sign in"}
-              </button>
+            <div className="mt-6 pt-6 border-t border-white/5 text-center">
+              <p className="text-slate-500 text-sm">
+                {authModal === 'login' ? "Don't have an account?" : "Already joined?"}
+                <button 
+                  onClick={() => openAuthModal(authModal === 'login' ? 'register' : 'login')}
+                  className="ml-2 text-emerald-400 font-bold hover:text-emerald-300"
+                >
+                  {authModal === 'login' ? 'Join Now' : 'Sign In'}
+                </button>
+              </p>
             </div>
           </div>
         </div>
       )}
 
+      <footer className="py-20 border-t border-white/5 px-4">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8 text-sm text-slate-500">
+          <div className="flex items-center gap-2">
+            <Shield className="w-5 h-5" />
+            <span className="font-bold text-white">77 SECURITY</span>
+            <span className="ml-4">© 2025 Standardizing the Web.</span>
+          </div>
+          <div className="flex items-center gap-6">
+            <a href="https://github.com/77-Security" className="hover:text-white transition-colors flex items-center gap-2"><Github className="w-4 h-4"/> Open Source</a>
+            <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
+            <a href="#" className="hover:text-white transition-colors">Documentation</a>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };
