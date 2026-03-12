@@ -300,7 +300,7 @@ const App = () => {
   const secureFetch = (url, options = {}) => {
     return fetch(url, {
       ...options,
-      credentials: 'include', // <--- THIS IS THE FIX
+      credentials: 'include', 
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
@@ -308,6 +308,27 @@ const App = () => {
       },
     });
   };
+
+  // NEW: Effect to handle routing based on URL path
+  useEffect(() => {
+    const handleRoute = () => {
+      const path = window.location.pathname;
+      if (path === '/login') {
+        setAuthModal('login');
+      } else if (path === '/signup') {
+        setAuthModal('register');
+      } else {
+        setAuthModal(null);
+      }
+    };
+
+    // Run on mount
+    handleRoute();
+
+    // Listen for back/forward navigation
+    window.addEventListener('popstate', handleRoute);
+    return () => window.removeEventListener('popstate', handleRoute);
+  }, []);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -365,7 +386,6 @@ const App = () => {
         body: JSON.stringify(formData)
       });
 
-      // Handle non-JSON responses gracefully
       const contentType = res.headers.get("content-type");
       let data;
       if (contentType && contentType.indexOf("application/json") !== -1) {
@@ -377,15 +397,14 @@ const App = () => {
       if (!res.ok) throw new Error(data.error || data.message || "Action failed");
       
       if (authModal === 'login') {
-        setAuthModal(null);
+        closeAuthModal();
         checkAuth();
       } else {
         alert(data.message || "Registration successful! Please check your email to verify.");
-        setAuthModal('login');
+        openAuthModal('login');
       }
     } catch (err) {
       console.error("Auth Error:", err);
-      // More descriptive error for "Failed to fetch" (usually CORS or Network)
       if (err.message === "Failed to fetch") {
         setError("Network error: Verification server unreachable or CORS block. Check console.");
       } else {
@@ -394,6 +413,18 @@ const App = () => {
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  // Helper to update state and URL
+  const openAuthModal = (type) => {
+    const path = type === 'login' ? '/login' : '/signup';
+    window.history.pushState({}, '', path);
+    setAuthModal(type);
+  };
+
+  const closeAuthModal = () => {
+    window.history.pushState({}, '', '/');
+    setAuthModal(null);
   };
 
   const updateProfile = async () => {
@@ -467,7 +498,7 @@ const App = () => {
                 <h2 className="text-2xl font-bold text-white">Node Verified</h2>
                 <p className="text-slate-400">{verifying.message}</p>
                 <button 
-                  onClick={() => { setVerifying({ status: 'idle' }); setAuthModal('login'); }}
+                  onClick={() => { setVerifying({ status: 'idle' }); openAuthModal('login'); }}
                   className="w-full bg-emerald-500 text-black py-4 rounded-xl font-bold hover:bg-emerald-400 transition-all"
                 >
                   Proceed to Login
@@ -520,8 +551,8 @@ const App = () => {
                 </div>
               ) : (
                 <div className="flex items-center gap-4">
-                  <button onClick={() => setAuthModal('login')} className="hover:text-emerald-400 transition-colors">Login</button>
-                  <button onClick={() => setAuthModal('register')} className="bg-emerald-500 hover:bg-emerald-400 text-black px-5 py-2 rounded-full font-bold transition-all transform hover:scale-105">
+                  <button onClick={() => openAuthModal('login')} className="hover:text-emerald-400 transition-colors">Login</button>
+                  <button onClick={() => openAuthModal('register')} className="bg-emerald-500 hover:bg-emerald-400 text-black px-5 py-2 rounded-full font-bold transition-all transform hover:scale-105">
                     Join Network
                   </button>
                 </div>
@@ -642,7 +673,7 @@ const App = () => {
               </p>
               <div className="flex flex-col sm:flex-row justify-center gap-4">
                 <button 
-                  onClick={() => setAuthModal('register')}
+                  onClick={() => openAuthModal('register')}
                   className="bg-emerald-500 hover:bg-emerald-400 text-black px-8 py-4 rounded-xl font-bold text-lg transition-all flex items-center justify-center gap-2"
                 >
                   Join the Network <ArrowRight className="w-5 h-5" />
@@ -655,9 +686,9 @@ const App = () => {
 
       {authModal && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-[#0a0a0c]/90 backdrop-blur-sm" onClick={() => setAuthModal(null)}></div>
+          <div className="absolute inset-0 bg-[#0a0a0c]/90 backdrop-blur-sm" onClick={closeAuthModal}></div>
           <div className="relative bg-[#16161a] border border-white/10 w-full max-w-md rounded-3xl p-8 shadow-2xl">
-            <button onClick={() => setAuthModal(null)} className="absolute top-6 right-6 text-slate-500 hover:text-white transition-colors"><X /></button>
+            <button onClick={closeAuthModal} className="absolute top-6 right-6 text-slate-500 hover:text-white transition-colors"><X /></button>
             
             <div className="text-center mb-8">
               <h3 className="text-2xl font-bold text-white mb-2">{authModal === 'login' ? 'Identity Portal' : 'Register Node'}</h3>
@@ -701,25 +732,24 @@ const App = () => {
                         required
                         className="w-full bg-black border border-white/10 rounded-xl py-3 pl-12 pr-4 text-sm focus:border-emerald-500 outline-none appearance-none cursor-pointer"
                         onChange={e => setFormData({...formData, industry_key: e.target.value})}
-                        value={formData.industry_key}
                       >
-                        <option value="" disabled>Select Sector</option>
-                        {INDUSTRIES.map(ind => <option key={ind.key} value={ind.key}>{ind.name}</option>)}
+                        <option value="">Select Sector</option>
+                        {INDUSTRIES.map(i => <option key={i.key} value={i.key}>{i.name}</option>)}
                       </select>
                     </div>
                   </div>
+
                   <div className="space-y-1">
-                    <label className="text-[10px] font-bold uppercase tracking-widest text-slate-500 ml-1">Country / Region</label>
+                    <label className="text-[10px] font-bold uppercase tracking-widest text-slate-500 ml-1">Operation Region</label>
                     <div className="relative">
                       <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 z-10" />
                       <select 
                         required
                         className="w-full bg-black border border-white/10 rounded-xl py-3 pl-12 pr-4 text-sm focus:border-emerald-500 outline-none appearance-none cursor-pointer"
                         onChange={e => setFormData({...formData, region_code: e.target.value})}
-                        value={formData.region_code}
                       >
-                        <option value="" disabled>Select Country</option>
-                        {COUNTRIES.map(reg => <option key={reg.code} value={reg.code}>{reg.name}</option>)}
+                        <option value="">Select Region</option>
+                        {COUNTRIES.map(c => <option key={c.code} value={c.code}>{c.name}</option>)}
                       </select>
                     </div>
                   </div>
@@ -727,24 +757,26 @@ const App = () => {
               )}
 
               <button 
+                type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-emerald-500 hover:bg-emerald-400 text-black py-4 rounded-xl font-bold mt-4 transition-all flex items-center justify-center gap-2"
+                className="w-full bg-emerald-500 hover:bg-emerald-400 text-black py-4 rounded-xl font-bold transition-all mt-4 flex items-center justify-center gap-2"
               >
-                {isSubmitting && <Loader2 className="w-4 h-4 animate-spin" />}
-                {authModal === 'login' ? 'Authenticate' : 'Provision Node Account'}
+                {isSubmitting ? <Loader2 className="w-5 h-5 animate-spin" /> : (authModal === 'login' ? 'Authorize Access' : 'Initialize Node')}
               </button>
             </form>
 
-            <div className="mt-8 text-center text-xs text-slate-500">
-              {authModal === 'login' ? (
-                <>New operator? <button onClick={() => setAuthModal('register')} className="text-emerald-500 font-bold underline">Create Node</button></>
-              ) : (
-                <>Existing operator? <button onClick={() => setAuthModal('login')} className="text-emerald-500 font-bold underline">Login</button></>
-              )}
+            <div className="mt-6 text-center">
+              <button 
+                onClick={() => openAuthModal(authModal === 'login' ? 'register' : 'login')}
+                className="text-slate-500 text-xs hover:text-emerald-400 transition-colors"
+              >
+                {authModal === 'login' ? "Need a Node ID? Join the network" : "Already registered? Sign in"}
+              </button>
             </div>
           </div>
         </div>
       )}
+
     </div>
   );
 };
