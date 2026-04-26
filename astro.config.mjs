@@ -20,6 +20,14 @@ export default defineConfig({
         },
         {
           tag: 'script',
+          attrs: {
+            async: true,
+            src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3109696245511304', // Replace with your ID
+            crossorigin: 'anonymous',
+          },
+        },
+        {
+          tag: 'script',
           attrs: { type: 'application/ld+json' },
           content: JSON.stringify({
             '@context': 'https://schema.org',
