@@ -1,6 +1,6 @@
 ---
-title: Defending the Model: Security for AI
-description: A deep dive into protecting Large Language Models from adversarial attacks.
+title: "Defending the Model: Security for AI"
+description: Practical strategies for defending Large Language Models against prompt injection, jailbreaking, and adversarial attacks. Includes input sanitization, guardrail models, and semantic security techniques.
 sidebar:
   order: 2
 ---

@@ -8,6 +8,44 @@ export default defineConfig({
   integrations: [
     starlight({
       title: '77 Security',
+      description: '77 Security is an AI security research firm specializing in LLM red teaming, prompt injection defense, adversarial ML, and securing AI-powered applications.',
+      head: [
+        {
+          tag: 'meta',
+          attrs: { property: 'og:image', content: 'https://www.77security.com/77security.png' },
+        },
+        {
+          tag: 'meta',
+          attrs: { name: 'theme-color', content: '#0f172a' },
+        },
+        {
+          tag: 'script',
+          attrs: { type: 'application/ld+json' },
+          content: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@graph': [
+              {
+                '@type': 'Organization',
+                name: '77 Security',
+                url: 'https://www.77security.com',
+                logo: 'https://www.77security.com/favicon.svg',
+                description: 'AI security research firm specializing in LLM red teaming, prompt injection, adversarial ML, and securing AI-powered applications.',
+                sameAs: ['https://github.com/77security/'],
+              },
+              {
+                '@type': 'WebSite',
+                name: '77 Security',
+                url: 'https://www.77security.com',
+                potentialAction: {
+                  '@type': 'SearchAction',
+                  target: 'https://www.77security.com/?q={search_term_string}',
+                  'query-input': 'required name=search_term_string',
+                },
+              },
+            ],
+          }),
+        },
+      ],
       // NEW SYNTAX: 'social' is now an array of objects
       social: [
         { 

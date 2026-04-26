@@ -1,6 +1,6 @@
 ---
 title: Introduction to AI Security
-description: Why securing AI is different from traditional software.
+description: Learn why AI security requires a fundamentally different approach. Covers LLM vulnerabilities, prompt injection attacks, and the expanding AI attack surface in 2026.
 ---
 
 ## Why 77 Security?

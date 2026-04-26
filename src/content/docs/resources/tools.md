@@ -1,6 +1,6 @@
 ---
 title: AI Security Tools
-description: A curated list of industry-standard tools for LLM Red Teaming, evaluation, and protection.
+description: Curated list of AI security tools for LLM red teaming, prompt injection testing, model evaluation, and runtime protection. Covers open-source and enterprise options.
 ---
 
 To secure AI systems at **77 Security**, we utilize a mix of open-source and enterprise-grade tools. This list is updated regularly as the landscape evolves.

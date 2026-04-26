@@ -1,6 +1,6 @@
 ---
 title: The Two Pillars of AI Security
-description: Understanding the difference between Security for AI and AI for Security.
+description: The two pillars of AI security: Security for AI (protecting LLMs from adversarial attacks) and AI for Security (using AI to detect threats). A strategic framework for 2026.
 sidebar:
   order: 1
 ---
