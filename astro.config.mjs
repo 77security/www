@@ -4,9 +4,11 @@ import starlight from '@astrojs/starlight';
 
 // https://astro.build/config
 export default defineConfig({
+	site: 'https://www.77security.com',
+	trailingSlash: 'always',
 	integrations: [
 		starlight({
-			title: 'My Docs',
+			title: '77 Security',
 			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/withastro/starlight' }],
 			sidebar: [
 				{

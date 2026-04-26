@@ -5,6 +5,7 @@
   },
   "mimeTypes": {
     ".css": "text/css",
-    ".js": "text/javascript"
+    ".js": "text/javascript",
+    ".webp": "image/webp"
   }
 }
