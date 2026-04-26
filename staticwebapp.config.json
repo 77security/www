@@ -1,8 +1,5 @@
 {
   "trailingSlash": "always",
-  "navigationFallback": {
-    "rewrite": "/index.html"
-  },
   "mimeTypes": {
     ".css": "text/css",
     ".js": "text/javascript",

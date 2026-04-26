@@ -6,6 +6,7 @@ import starlight from '@astrojs/starlight';
 export default defineConfig({
 	site: 'https://www.77security.com',
 	trailingSlash: 'always',
+	output: 'static',
 	integrations: [
 		starlight({
 			title: '77 Security',
