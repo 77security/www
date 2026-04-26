@@ -12,7 +12,7 @@ export default defineConfig({
       social: [
         { 
           label: 'GitHub', 
-          link: 'https://github.com/77security/', 
+          href: 'https://github.com/77security/', 
           icon: 'github' 
         },
       ],
