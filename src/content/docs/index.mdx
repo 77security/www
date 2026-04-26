@@ -1,40 +1,33 @@
 ---
-title: Welcome to Starlight
-description: Get started building your docs site with Starlight.
-template: splash # Remove or comment out this line to display the site sidebar on this page.
+title: Welcome to 77 Security
+description: Protecting the future of AI and Machine Learning.
+template: splash
 hero:
-  tagline: Congrats on setting up a new Starlight project!
+  tagline: Advanced Security Research for AI Systems.
   image:
-    file: ../../assets/houston.webp
+    file: ../../assets/houston.webp # Replace with your logo later
   actions:
-    - text: Example Guide
-      link: /guides/example/
+    - text: Read the Guides
+      link: /ai-security/introduction/
       icon: right-arrow
-    - text: Read the Starlight docs
-      link: https://starlight.astro.build
+      variant: primary
+    - text: View on GitHub
+      link: https://github.com/77security
       icon: external
-      variant: minimal
 ---
 
 import { Card, CardGrid } from '@astrojs/starlight/components';
 
-## Next steps
+## Our Core Focus
 
 <CardGrid stagger>
-	<Card title="Update content" icon="pencil">
-		Edit `src/content/docs/index.mdx` to see this page change.
+	<Card title="LLM Red Teaming" icon="pencil">
+		Testing large language models for prompt injection and data leakage.
 	</Card>
-	<Card title="Change page layout" icon="document">
-		Delete `template: splash` in `src/content/docs/index.mdx` to display a
-		sidebar on this page.
+	<Card title="Model Poisoning" icon="warning">
+		Defending against adversarial attacks on training data.
 	</Card>
-	<Card title="Add new content" icon="add-document">
-		Add Markdown or MDX files to `src/content/docs` to create new pages.
-	</Card>
-	<Card title="Configure your site" icon="setting">
-		Edit your `sidebar` and other config in `astro.config.mjs`.
-	</Card>
-	<Card title="Read the docs" icon="open-book">
-		Learn more in [the Starlight Docs](https://starlight.astro.build/).
+	<Card title="API Security" icon="setting">
+		Securing the endpoints that power your AI applications.
 	</Card>
 </CardGrid>
