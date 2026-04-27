@@ -1,0 +1,58 @@
+---
+// src/components/Footer.astro
+import type { Props } from '@astrojs/starlight/props';
+import Default from '@astrojs/starlight/components/Footer.astro';
+
+const year = new Date().getFullYear();
+---
+
+{/* 1. Render the original Starlight footer first (Pagination & Edit links) */}
+<Default {...Astro.props} />
+
+{/* 2. Add your custom bottom section */}
+<footer class="site-footer">
+  <div class="footer-content">
+    <div class="copyright">
+      &copy; {year} <strong>77 Security</strong>. All rights reserved.
+    </div>
+    <nav class="footer-links">
+      <a href="/privacy/">Privacy Policy</a>
+      <a href="/resources/glossary/">Glossary</a>
+      <a href="mailto:77security@77security.com">Contact</a>
+    </nav>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    margin-top: 3rem;
+    padding: 2rem 0;
+    border-top: 1px solid var(--sl-color-gray-5);
+  }
+  .footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    color: var(--sl-color-gray-3);
+    font-size: 0.9rem;
+  }
+  .footer-links {
+    display: flex;
+    gap: 1.5rem;
+  }
+  .footer-links a {
+    color: var(--sl-color-gray-3);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover {
+    color: var(--sl-color-accent-high);
+  }
+  @media (min-width: 50rem) {
+    .footer-content {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+</style>

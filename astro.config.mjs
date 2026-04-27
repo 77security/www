@@ -74,6 +74,10 @@ export default defineConfig({
           autogenerate: { directory: 'ai-security' },
         },
         {
+          label: 'Latest News', // Add this!
+          autogenerate: { directory: 'blog' },
+        },
+        {
           label: 'Resources',
           items: [
             { label: 'Security Tools', slug: 'resources/tools' },
@@ -81,6 +85,9 @@ export default defineConfig({
         },
         { label: 'Privacy Policy', slug: 'privacy' },
       ],
+      components: {
+        Footer: './src/components/Footer.astro',
+      },
     }),
     sitemap(),
   ],
