@@ -19,11 +19,6 @@ Prompt injection is the most common vulnerability in AI applications. It occurs 
 2. **Input Sanitization:** Stripping known "jailbreak" phrases from the user's request.
 3. **Monitor Models:** Using a smaller, "guardrail" model to check the input before it reaches the main LLM.
 
-## Why it Matters for SEO
-Google is currently prioritizing content that explains **practical AI safety**. By documenting these mitigations, 77 Security provides high-value content that attracts technical decision-makers—the exact audience that high-paying advertisers want to reach.
-
-import { Steps } from '@astrojs/starlight/components';
-
 ## How to Start Securing Your AI
 <Steps>
 1. **Inventory:** Identify every LLM endpoint in your organization.

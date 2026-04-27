@@ -1,38 +1,59 @@
 ---
 title: Welcome to 77 Security
-description: 77 Security provides AI security research covering LLM red teaming, prompt injection defense, adversarial ML, and securing AI-powered applications for enterprises.
 template: splash
 hero:
-  tagline: Advanced Security Research for AI Systems.
+  tagline: Advanced Security Research for the Age of Agentic AI.
   image:
-    file: ../../assets/houston.webp # Replace with your logo later
+    file: ../../assets/hero-shield.png # Replace with your logo or a shield icon
   actions:
-    - text: Read the Guides
-      link: /ai-security/introduction/
+    - text: Explore Research
+      link: /ai-security/pillars/
       icon: right-arrow
       variant: primary
-    - text: View on GitHub
-      link: https://github.com/77security
+    - text: View Toolbox
+      link: /resources/tools/
       icon: external
 ---
 
 import { Card, CardGrid } from '@astrojs/starlight/components';
 import RecentArticles from '../../components/RecentArticles.astro';
 
+## Why AI Security?
+
+The rapid adoption of Large Language Models (LLMs) and Autonomous Agents has created a new attack surface that traditional cybersecurity was never built to handle. Unlike classic software, AI systems are **probabilistic**, not deterministic. This creates unique vulnerabilities where the "code" is actually natural language.
+
+
+
+### The New Frontier of Risk
+Traditional firewalls look for malicious code; however, in an AI-driven world, a "malicious" input might look like a perfectly normal sentence. 
+
+* **Semantic Vulnerabilities:** Attacks like *Prompt Injection* exploit the way models interpret instructions, turning a trusted assistant into a "confused deputy."
+* **Data Integrity:** As models learn from vast datasets, *Data Poisoning* can introduce subtle biases or backdoors that remain hidden until triggered by a specific phrase.
+* **Agentic Risk:** When we give AI the power to browse the web or execute API calls, we aren't just deploying a chatbot—we are deploying a user with high-level privileges.
+
+[Image comparing traditional cyber security vs AI security focus areas]
+
 ## Recent Security Research
-{/* This is where your new component appears */}
 <RecentArticles />
 
-## Our Core Focus
+---
 
+## Our Methodology
 <CardGrid stagger>
-	<Card title="LLM Red Teaming" icon="pencil">
-		Testing large language models for prompt injection and data leakage.
-	</Card>
-	<Card title="Model Poisoning" icon="warning">
-		Defending against adversarial attacks on training data.
-	</Card>
-	<Card title="API Security" icon="setting">
-		Securing the endpoints that power your AI applications.
-	</Card>
+  <Card title="Adversarial Testing" icon="magnifier">
+    We simulate real-world attacks to identify where LLM guardrails fail under pressure.
+  </Card>
+  <Card title="Security for AI" icon="shieldCheck">
+    Focusing on the infrastructure: Securing the data pipeline and the model weights.
+  </Card>
+  <Card title="AI for Security" icon="rocket">
+    Leveraging machine learning to automate threat detection and response at scale.
+  </Card>
+  <Card title="Policy & Ethics" icon="document">
+    Analyzing the EU AI Act and NIST frameworks to ensure compliance and safety.
+  </Card>
 </CardGrid>
+
+:::tip[Join the Research]
+Are you a security researcher? Check out our [Glossary](/resources/glossary/) to get up to speed on the latest 2026 threat terminology.
+:::
