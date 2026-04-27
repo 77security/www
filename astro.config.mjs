@@ -73,6 +73,7 @@ export default defineConfig({
             { label: 'Security Tools', slug: 'resources/tools' },
           ],
         },
+        { label: 'Privacy Policy', slug: 'privacy' },
       ],
     }),
     sitemap(),
