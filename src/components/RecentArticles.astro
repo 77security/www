@@ -11,7 +11,7 @@ const recentPosts = docs
 
 <div class="card-grid">
   {recentPosts.map((post) => {
-    const url = `/${post.slug}/`;
+    const url = `/${post.id}/`;
 
     const displayDate = new Date(post.data.date).toLocaleDateString('en-US', {
       year: 'numeric',
