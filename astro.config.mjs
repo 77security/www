@@ -8,6 +8,12 @@ export default defineConfig({
   integrations: [
     starlight({
       title: '77 Security',
+      favicon: '/favicon.ico',
+      logo: {
+        src: './src/assets/logo.png',
+        dark: './src/assets/logo-dark.png',
+        alt: '77 Security Logo',
+      },
       description: '77 Security is an AI security research firm specializing in LLM red teaming, prompt injection defense, adversarial ML, and securing AI-powered applications.',
       head: [
         {
