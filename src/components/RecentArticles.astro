@@ -3,48 +3,24 @@ import { getCollection } from 'astro:content';
 
 const docs = await getCollection('docs');
 
-// Filter and Sort
 const recentPosts = docs
-  .filter(post => {
-    // 1. Must have a date in frontmatter
-    // 2. Must not be the homepage
-    return post.data.date && post.id !== 'index.mdx';
-  })
-  .sort((a, b) => {
-    const dateA = new Date(a.data.date).getTime();
-    const dateB = new Date(b.data.date).getTime();
-    return dateB - dateA;
-  })
+  .filter(post => post.data.date) // only posts with date
+  .sort((a, b) => new Date(b.data.date) - new Date(a.data.date))
   .slice(0, 3);
 ---
 
 <div class="card-grid">
   {recentPosts.map((post) => {
-    // RESOLVING THE URL (The Fix for /undefined/)
-    // We check for .slug first, then .id, and finally strip any file extensions
-    const slug = post.slug || post.id || '';
-    const cleanSlug = slug.replace(/\.mdx?$/, '').replace(/\/index$/, '');
-    const url = `/${cleanSlug}/`;
-    
-    // RESOLVING THE DATE (The Fix for "Invalid Date")
-    let displayDate = "Recent Update";
-    try {
-      if (post.data.date) {
-        const dateObj = new Date(post.data.date);
-        if (!isNaN(dateObj.getTime())) {
-          displayDate = dateObj.toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-          });
-        }
-      }
-    } catch (e) {
-      console.error("Date parsing error for:", post.id);
-    }
+    const url = `/${post.slug}/`;
+
+    const displayDate = new Date(post.data.date).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
 
     return (
-      <a href={url} style="text-decoration: none; color: inherit;" class="not-content">
+      <a href={url} class="not-content">
         <article class="recent-card">
           <p class="date-tag">{displayDate}</p>
           <h3 class="title">{post.data.title}</h3>
