@@ -1,0 +1,36 @@
+---
+// src/components/RecentArticles.astro
+import { getCollection } from 'astro:content';
+
+// 1. Get all documents from the 'docs' collection
+const docs = await getCollection('docs');
+
+// 2. Filter out the index page and sort by date (newest first)
+const recentPosts = docs
+  .filter(post => post.id !== 'index.mdx') // Don't list the homepage itself
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
+  .slice(0, 3); // Adjust this number to show more or fewer posts
+---
+
+<div class="card-grid">
+  {recentPosts.map((post) => (
+    <a href={`/${post.slug}/`} style="text-decoration: none; color: inherit;">
+      <article class="card" style="padding: 1.5rem; border: 1px solid var(--sl-color-gray-5); border-radius: 0.5rem; height: 100%;">
+        <p style="font-size: 0.8rem; color: var(--sl-color-accent-high); margin-bottom: 0.5rem;">
+          {new Date(post.data.date).toLocaleDateString()}
+        </p>
+        <h3 style="margin: 0; font-size: 1.25rem;">{post.data.title}</h3>
+        <p style="font-size: 0.9rem; margin-top: 0.5rem; color: var(--sl-color-gray-3);">
+          {post.data.description}
+        </p>
+      </article>
+    </a>
+  ))}
+</div>
+
+<style>
+  .card:hover {
+    border-color: var(--sl-color-accent) !important;
+    background-color: var(--sl-color-gray-6);
+  }
+</style>

@@ -1,6 +1,7 @@
 ---
 title: Example Guide
 description: A guide in my new Starlight docs site.
+date: 2026-04-26
 ---
 
 Guides lead a user through a specific task they want to accomplish, often with a sequence of steps.

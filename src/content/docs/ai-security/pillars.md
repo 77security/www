@@ -1,6 +1,7 @@
 ---
 title: "The Two Pillars of AI Security"
 description: "The two pillars of AI security: Security for AI (protecting LLMs from adversarial attacks) and AI for Security (using AI to detect threats). A strategic framework for 2026."
+date: 2026-04-27
 sidebar:
   order: 1
 ---

@@ -1,6 +1,7 @@
 ---
 title: AI Security Glossary
 description: AI security glossary covering prompt injection, adversarial examples, model poisoning, jailbreaking, data poisoning, and other key terms every AI security professional needs to know.
+date: 2026-04-26
 ---
 
 Understanding the terminology is the first step toward securing the machine. Here are the core concepts at **77 Security**.
