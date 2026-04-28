@@ -1,0 +1,22 @@
+/* src/styles/custom.css */
+
+/* Shrinks the massive Hero padding */
+.hero {
+  padding-block: 2rem !important;
+}
+
+/* Downsizes the shield image */
+.hero img {
+  width: 280px !important;
+  height: auto !important;
+}
+
+/* Makes the main "Welcome" heading a more reasonable size */
+.hero .title {
+  font-size: var(--sl-text-h2) !important;
+}
+
+/* Optional: Tighten up spacing in the main content */
+.sl-markdown-content > * + * {
+  margin-top: 1rem !important;
+}

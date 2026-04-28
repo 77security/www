@@ -18,20 +18,6 @@ hero:
 import { Card, CardGrid } from '@astrojs/starlight/components';
 import RecentArticles from '../../components/RecentArticles.astro';
 
-<style>
-  /* This shrinks the massive Hero padding and font size */
-  .hero {
-    padding-block: 2rem !important;
-  }
-  .hero img {
-    width: 280px !important; /* Shrinks the shield image */
-    height: auto !important;
-  }
-  .sl-markdown-content h1 {
-    font-size: var(--sl-text-h2) !important; /* Makes "Welcome..." smaller */
-  }
-</style>
-
 ## Why AI Security?
 The rapid adoption of Large Language Models (LLMs) and Autonomous Agents has created a new attack surface that traditional cybersecurity was never built to handle. Unlike classic software, AI systems are **probabilistic**, not deterministic. This creates unique vulnerabilities where the "code" is actually natural language.
 

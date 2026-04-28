@@ -8,6 +8,7 @@ export default defineConfig({
   integrations: [
     starlight({
       title: '77 Security',
+      customCss: ['./src/styles/custom.css'],
       favicon: '/favicon.ico',
       logo: {
         src: './src/assets/logo.png',
