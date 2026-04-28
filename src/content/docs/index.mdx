@@ -4,7 +4,7 @@ template: splash
 hero:
   tagline: Advanced Security Research for the Age of Agentic AI.
   image:
-    file: ../../assets/hero-shield.png # Replace with your logo or a shield icon
+    file: ../../assets/hero-shield.png
   actions:
     - text: Explore Research
       link: /ai-security/pillars/
@@ -18,22 +18,26 @@ hero:
 import { Card, CardGrid } from '@astrojs/starlight/components';
 import RecentArticles from '../../components/RecentArticles.astro';
 
+<style>
+  /* This shrinks the massive Hero padding and font size */
+  .hero {
+    padding-block: 2rem !important;
+  }
+  .hero img {
+    width: 280px !important; /* Shrinks the shield image */
+    height: auto !important;
+  }
+  .sl-markdown-content h1 {
+    font-size: var(--sl-text-h2) !important; /* Makes "Welcome..." smaller */
+  }
+</style>
+
 ## Why AI Security?
-
 The rapid adoption of Large Language Models (LLMs) and Autonomous Agents has created a new attack surface that traditional cybersecurity was never built to handle. Unlike classic software, AI systems are **probabilistic**, not deterministic. This creates unique vulnerabilities where the "code" is actually natural language.
-
-
-
-### The New Frontier of Risk
-Traditional firewalls look for malicious code; however, in an AI-driven world, a "malicious" input might look like a perfectly normal sentence. 
-
-* **Semantic Vulnerabilities:** Attacks like *Prompt Injection* exploit the way models interpret instructions, turning a trusted assistant into a "confused deputy."
-* **Data Integrity:** As models learn from vast datasets, *Data Poisoning* can introduce subtle biases or backdoors that remain hidden until triggered by a specific phrase.
-* **Agentic Risk:** When we give AI the power to browse the web or execute API calls, we aren't just deploying a chatbot—we are deploying a user with high-level privileges.
 
 [Image comparing traditional cyber security vs AI security focus areas]
 
-## Recent Security Research
+## Latest News
 <RecentArticles />
 
 ---
