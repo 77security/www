@@ -4,7 +4,7 @@ import starlight from '@astrojs/starlight';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://www.77security.com',
+  site: 'https://77security.com',
   integrations: [
     starlight({
       title: '77 Security',
