@@ -14,7 +14,7 @@ function getBanner(post) {
 
 <div class="news-feed">
   {posts.map((post) => (
-    <a href={`/${post.slug}/`} class="news-item">
+    <a href={`/${post.id}/`} class="news-item">
       <div class="news-image">
         <img src={getBanner(post)} alt={post.data.title} />
       </div>
