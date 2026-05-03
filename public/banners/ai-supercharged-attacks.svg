@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a"/>
+      <stop offset="100%" style="stop-color:#0a1628"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#f59e0b"/>
+      <stop offset="100%" style="stop-color:#ef4444"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <!-- Grid lines -->
+  <line x1="0" y1="105" x2="1200" y2="105" stroke="#1e293b" stroke-width="1"/>
+  <line x1="0" y1="210" x2="1200" y2="210" stroke="#1e293b" stroke-width="1"/>
+  <line x1="0" y1="315" x2="1200" y2="315" stroke="#1e293b" stroke-width="1"/>
+  <line x1="0" y1="420" x2="1200" y2="420" stroke="#1e293b" stroke-width="1"/>
+  <line x1="0" y1="525" x2="1200" y2="525" stroke="#1e293b" stroke-width="1"/>
+  <line x1="240" y1="0" x2="240" y2="630" stroke="#1e293b" stroke-width="1"/>
+  <line x1="480" y1="0" x2="480" y2="630" stroke="#1e293b" stroke-width="1"/>
+  <line x1="720" y1="0" x2="720" y2="630" stroke="#1e293b" stroke-width="1"/>
+  <line x1="960" y1="0" x2="960" y2="630" stroke="#1e293b" stroke-width="1"/>
+  <!-- Amber warning nodes -->
+  <circle cx="120" cy="315" r="4" fill="#f59e0b" opacity="0.5"/>
+  <circle cx="360" cy="210" r="4" fill="#f59e0b" opacity="0.5"/>
+  <circle cx="600" cy="420" r="4" fill="#ef4444" opacity="0.5"/>
+  <circle cx="840" cy="315" r="4" fill="#ef4444" opacity="0.5"/>
+  <line x1="120" y1="315" x2="360" y2="210" stroke="#f59e0b" stroke-width="1" opacity="0.2"/>
+  <line x1="360" y1="210" x2="600" y2="420" stroke="#f97316" stroke-width="1" opacity="0.2"/>
+  <line x1="600" y1="420" x2="840" y2="315" stroke="#ef4444" stroke-width="1" opacity="0.2"/>
+  <!-- Left accent bar -->
+  <rect x="0" y="0" width="6" height="630" fill="url(#accent)"/>
+  <!-- Bottom accent bar -->
+  <rect x="0" y="614" width="1200" height="4" fill="url(#accent)" opacity="0.5"/>
+  <!-- Category tag -->
+  <rect x="60" y="60" width="180" height="32" rx="16" fill="#f59e0b" opacity="0.12"/>
+  <text x="80" y="81" font-family="system-ui,-apple-system,sans-serif" font-size="13" font-weight="600" fill="#fbbf24" letter-spacing="1">REGULATORY ALERT</text>
+  <!-- Title -->
+  <text x="60" y="200" font-family="system-ui,-apple-system,sans-serif" font-size="50" font-weight="800" fill="#ffffff">AI Will Supercharge</text>
+  <text x="60" y="260" font-family="system-ui,-apple-system,sans-serif" font-size="50" font-weight="800" fill="#ffffff">Cyber Attacks in 2026</text>
+  <!-- Subtitle -->
+  <text x="60" y="330" font-family="system-ui,-apple-system,sans-serif" font-size="22" fill="#94a3b8">Global regulators sound the alarm on AI-accelerated threats</text>
+  <!-- Author -->
+  <text x="60" y="540" font-family="system-ui,-apple-system,sans-serif" font-size="16" fill="#64748b">By</text>
+  <text x="82" y="540" font-family="system-ui,-apple-system,sans-serif" font-size="16" font-weight="600" fill="#fbbf24">Sentinel</text>
+  <!-- Branding -->
+  <text x="60" y="575" font-family="system-ui,-apple-system,sans-serif" font-size="20" font-weight="700" fill="#60a5fa">77 Security</text>
+  <text x="170" y="575" font-family="system-ui,-apple-system,sans-serif" font-size="16" fill="#475569"> · AI Security Research</text>
+  <!-- Lightning bolt shape (right) -->
+  <polygon points="1050,160 1000,310 1040,310 990,470 1120,280 1075,280 1130,160" fill="#f59e0b" opacity="0.08"/>
+  <polygon points="1050,160 1000,310 1040,310 990,470 1120,280 1075,280 1130,160" fill="none" stroke="#f59e0b" stroke-width="1.5" opacity="0.2"/>
+</svg>

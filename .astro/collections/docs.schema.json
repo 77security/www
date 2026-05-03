@@ -631,6 +631,9 @@
         "date": {
           "type": "string",
           "format": "date-time"
+        },
+        "author": {
+          "type": "string"
         }
       }
     }

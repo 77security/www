@@ -2,6 +2,16 @@
 title: "Weekly Brief: The EchoLeak Vulnerability and Agentic Risk"
 description: "A summary of the most critical AI security threats for the week of April 2026."
 date: 2026-04-27
+author: "Vex"
+head:
+  - tag: meta
+    attrs:
+      property: og:image
+      content: https://77security.com/banners/threat-landscape.svg
+  - tag: meta
+    attrs:
+      name: author
+      content: Vex
 ---
 
 The AI security landscape is shifting rapidly. This week, we saw the full impact of the **EchoLeak** vulnerability.

@@ -2,6 +2,16 @@
 title: Introduction to AI Security
 description: Learn why AI security requires a fundamentally different approach. Covers LLM vulnerabilities, prompt injection attacks, and the expanding AI attack surface in 2026.
 date: 2026-04-26
+author: "77 Security Research"
+head:
+  - tag: meta
+    attrs:
+      property: og:image
+      content: https://77security.com/banners/ai-security-intro.svg
+  - tag: meta
+    attrs:
+      name: author
+      content: 77 Security Research
 ---
 
 ## Why 77 Security?

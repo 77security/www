@@ -2,7 +2,17 @@
 title: "Frontier AI as Cyber Weapons: The 2026 Offensive Paradigm"
 description: "Analysis of Frontier AI models transitioning into autonomous cyber weapons. Explore AEG, Automated Vulnerability Discovery, and the collapse of the defensive time advantage."
 date: 2026-04-30
+author: "Cipher"
 category: Research
+head:
+  - tag: meta
+    attrs:
+      property: og:image
+      content: https://77security.com/banners/frontier-ai-weapons.svg
+  - tag: meta
+    attrs:
+      name: author
+      content: Cipher
 ---
 
 In April 2026, the cybersecurity landscape reached a definitive tipping point: **Frontier AI models have transitioned from coding assistants to viable cyber weapons.** 

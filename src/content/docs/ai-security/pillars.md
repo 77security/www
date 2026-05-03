@@ -2,8 +2,18 @@
 title: "The Two Pillars of AI Security"
 description: "The two pillars of AI security: Security for AI (protecting LLMs from adversarial attacks) and AI for Security (using AI to detect threats). A strategic framework for 2026."
 date: 2026-04-27
+author: "Cipher"
 sidebar:
   order: 1
+head:
+  - tag: meta
+    attrs:
+      property: og:image
+      content: https://77security.com/banners/ai-pillars.svg
+  - tag: meta
+    attrs:
+      name: author
+      content: Cipher
 ---
 
 At **77 Security**, we categorize the intersection of Artificial Intelligence and Cybersecurity into two distinct but overlapping disciplines. To build a robust security posture in 2026, organizations must master both.

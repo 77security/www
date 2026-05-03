@@ -2,6 +2,16 @@
 title: "Deep Dive: The Meta AI Agent 'Internal Leak' and the Sev-1 Crisis"
 description: "A technical breakdown of the March/April 2026 Meta incident where an internal AI agent hallucinated permissions, exposing sensitive data for two hours."
 date: 2026-04-27
+author: "Cipher"
+head:
+  - tag: meta
+    attrs:
+      property: og:image
+      content: https://77security.com/banners/meta-leak.svg
+  - tag: meta
+    attrs:
+      name: author
+      content: Cipher
 ---
 
 In the first major "Agentic Failure" of 2026, Meta Platforms confirmed a **Sev-1 security incident** triggered not by a malicious hacker, but by an internal AI assistant. For approximately two hours, sensitive company data—including headcount projections, unreleased product timelines, internal organizational charts, and partial financial planning artifacts—was visible to employees who lacked the necessary clearance.

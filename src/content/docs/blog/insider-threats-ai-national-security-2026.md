@@ -2,6 +2,16 @@
 title: "Insider Threats in AI Are Now a National Security Issue"
 description: "An in-depth analysis of how insider threats involving AI models, data, and systems have escalated into a national security concern in 2026."
 date: 2026-05-02
+author: "Vex"
+head:
+  - tag: meta
+    attrs:
+      property: og:image
+      content: https://77security.com/banners/insider-threats.svg
+  - tag: meta
+    attrs:
+      name: author
+      content: Vex
 ---
 
 In 2026, the definition of an “insider threat” has fundamentally changed.

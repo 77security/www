@@ -2,6 +2,16 @@
 title: "Regulators Warn: AI Will Supercharge Cyber Attacks in 2026"
 description: "An in-depth analysis of global regulatory warnings that artificial intelligence will accelerate cyber attacks, increase scale, and outpace traditional security defenses."
 date: 2026-05-01
+author: "Sentinel"
+head:
+  - tag: meta
+    attrs:
+      property: og:image
+      content: https://77security.com/banners/ai-supercharged-attacks.svg
+  - tag: meta
+    attrs:
+      name: author
+      content: Sentinel
 ---
 
 In April 2026, regulators across multiple regions issued a clear and urgent warning:

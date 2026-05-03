@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a"/>
+      <stop offset="100%" style="stop-color:#0a1a14"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#10b981"/>
+      <stop offset="100%" style="stop-color:#3b82f6"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <!-- Grid lines -->
+  <line x1="0" y1="105" x2="1200" y2="105" stroke="#1e293b" stroke-width="1"/>
+  <line x1="0" y1="210" x2="1200" y2="210" stroke="#1e293b" stroke-width="1"/>
+  <line x1="0" y1="315" x2="1200" y2="315" stroke="#1e293b" stroke-width="1"/>
+  <line x1="0" y1="420" x2="1200" y2="420" stroke="#1e293b" stroke-width="1"/>
+  <line x1="0" y1="525" x2="1200" y2="525" stroke="#1e293b" stroke-width="1"/>
+  <line x1="240" y1="0" x2="240" y2="630" stroke="#1e293b" stroke-width="1"/>
+  <line x1="480" y1="0" x2="480" y2="630" stroke="#1e293b" stroke-width="1"/>
+  <line x1="720" y1="0" x2="720" y2="630" stroke="#1e293b" stroke-width="1"/>
+  <line x1="960" y1="0" x2="960" y2="630" stroke="#1e293b" stroke-width="1"/>
+  <!-- Shield with lock (right side) -->
+  <path d="M 1000 160 L 1130 200 L 1130 340 Q 1130 440 1000 480 Q 870 440 870 340 L 870 200 Z" fill="#10b981" opacity="0.05"/>
+  <path d="M 1000 180 L 1110 215 L 1110 338 Q 1110 422 1000 458 Q 890 422 890 338 L 890 215 Z" fill="none" stroke="#10b981" stroke-width="2" opacity="0.2"/>
+  <!-- Lock icon in shield -->
+  <rect x="970" y="290" width="60" height="45" rx="5" fill="none" stroke="#10b981" stroke-width="2" opacity="0.3"/>
+  <path d="M 983 290 Q 983 260 1000 260 Q 1017 260 1017 290" fill="none" stroke="#10b981" stroke-width="2" opacity="0.3"/>
+  <circle cx="1000" cy="313" r="6" fill="#10b981" opacity="0.3"/>
+  <!-- Left accent bar -->
+  <rect x="0" y="0" width="6" height="630" fill="url(#accent)"/>
+  <!-- Bottom accent bar -->
+  <rect x="0" y="614" width="1200" height="4" fill="url(#accent)" opacity="0.5"/>
+  <!-- Category tag -->
+  <rect x="60" y="60" width="155" height="32" rx="16" fill="#10b981" opacity="0.12"/>
+  <text x="80" y="81" font-family="system-ui,-apple-system,sans-serif" font-size="13" font-weight="600" fill="#34d399" letter-spacing="1">DEFENSE GUIDE</text>
+  <!-- Title -->
+  <text x="60" y="200" font-family="system-ui,-apple-system,sans-serif" font-size="52" font-weight="800" fill="#ffffff">Defending the Model:</text>
+  <text x="60" y="262" font-family="system-ui,-apple-system,sans-serif" font-size="52" font-weight="800" fill="#34d399">Security for AI</text>
+  <!-- Subtitle -->
+  <text x="60" y="330" font-family="system-ui,-apple-system,sans-serif" font-size="22" fill="#94a3b8">Practical LLM defense against prompt injection and adversarial attacks</text>
+  <!-- Author -->
+  <text x="60" y="540" font-family="system-ui,-apple-system,sans-serif" font-size="16" fill="#64748b">By</text>
+  <text x="82" y="540" font-family="system-ui,-apple-system,sans-serif" font-size="16" font-weight="600" fill="#34d399">Cipher</text>
+  <!-- Branding -->
+  <text x="60" y="575" font-family="system-ui,-apple-system,sans-serif" font-size="20" font-weight="700" fill="#60a5fa">77 Security</text>
+  <text x="170" y="575" font-family="system-ui,-apple-system,sans-serif" font-size="16" fill="#475569"> · AI Security Research</text>
+</svg>

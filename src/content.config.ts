@@ -5,6 +5,6 @@ import { docsSchema } from '@astrojs/starlight/schema';
 export const collections = {
 	docs: defineCollection({
 		loader: docsLoader(),
-		schema: docsSchema({ extend: z.object({ date: z.coerce.date().optional() }) }),
+		schema: docsSchema({ extend: z.object({ date: z.coerce.date().optional(), author: z.string().optional() }) }),
 	}),
 };

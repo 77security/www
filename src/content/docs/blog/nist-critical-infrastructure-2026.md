@@ -2,6 +2,16 @@
 title: "NIST 2026 Update: Securing AI in Critical Infrastructure"
 description: "A professional analysis of the April 2026 NIST Note on the AI Risk Management Framework (RMF) for power plants, water systems, and healthcare."
 date: 2026-04-29
+author: "Sentinel"
+head:
+  - tag: meta
+    attrs:
+      property: og:image
+      content: https://77security.com/banners/nist-infrastructure.svg
+  - tag: meta
+    attrs:
+      name: author
+      content: Sentinel
 ---
 
 On April 7, 2026, the National Institute of Standards and Technology (NIST) released a pivotal concept note expanding its **AI Risk Management Framework (AI RMF)** to address the growing role of Artificial Intelligence in **Critical Infrastructure (CI)**.

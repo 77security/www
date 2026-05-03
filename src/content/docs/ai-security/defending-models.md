@@ -2,8 +2,18 @@
 title: "Defending the Model: Security for AI"
 description: Practical strategies for defending Large Language Models against prompt injection, jailbreaking, and adversarial attacks. Includes input sanitization, guardrail models, and semantic security techniques.
 date: 2026-04-27
+author: "Cipher"
 sidebar:
   order: 2
+head:
+  - tag: meta
+    attrs:
+      property: og:image
+      content: https://77security.com/banners/defending-models.svg
+  - tag: meta
+    attrs:
+      name: author
+      content: Cipher
 ---
 
 As Large Language Models (LLMs) become the "brain" of modern applications, they become the primary target. Securing them requires a shift from traditional network security to **semantic security**.
