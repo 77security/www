@@ -1,24 +1,31 @@
 /* src/styles/custom.css */
 
-/* Compact Hero for a News-Portal feel */
-.hero {
-  padding-block: 2rem !important;
+/* 1. Force the Hero title onto one line and make it smaller */
+.hero h1 {
+  font-size: clamp(1.5rem, 4vw, 2.5rem) !important; /* Adjusts based on screen size */
+  white-space: nowrap; /* Prevents the text from wrapping */
+  line-height: 1.2 !important;
 }
 
+/* 2. Reduce the tagline size and margin */
+.hero .tagline {
+  font-size: 1.1rem !important;
+  margin-top: 0.5rem !important;
+}
+
+/* 3. Aggressively reduce vertical padding of the Hero section */
+.hero {
+  padding-top: 1.5rem !important;
+  padding-bottom: 1rem !important;
+}
+
+/* 4. Shrink the hero image further to keep things tight */
 .hero img {
-  width: 260px !important;
+  max-width: 180px !important;
   height: auto !important;
 }
 
-/* Ensure the main heading on the home page isn't too huge */
-.sl-markdown-content h1 {
-  font-size: var(--sl-text-h2) !important;
-}
-
-/* Style the Infographic for better fit */
-img[src*="watermarked_img"] {
-  border: 1px solid var(--sl-color-gray-5);
-  border-radius: 8px;
-  margin-block: 2rem;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+/* 5. Reduce space between hero and the next section (Latest Intelligence) */
+.hero + .sl-markdown-content {
+  margin-top: 0 !important;
 }
