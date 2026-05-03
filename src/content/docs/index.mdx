@@ -1,19 +1,18 @@
 ---
 title: Welcome to 77 Security
-description: "77 Security provides deep-dive research into LLM vulnerabilities, AI-mutated malware like Slopoly, and security frameworks for autonomous agents."
 template: splash
+description: Advanced AI Security Research and Threat Intelligence.
 head:
   - tag: title
-    content: AI Security Research & LLM Threat Intelligence | 77 Security
+    content: AI Security Research & Latest News | 77 Security
 hero:
   tagline: Advanced Security Research for the Age of Agentic AI.
   image:
-    file: ../../assets/hero-shield.png
+    file: ../../assets/hero-shield.svg 
   actions:
-    - text: Explore Research
-      link: /ai-security/pillars/
-      icon: right-arrow
-      variant: primary
+    - text: Latest Intelligence
+      link: "#latest-news"
+      icon: down-arrow
     - text: View Toolbox
       link: /resources/tools/
       icon: external
@@ -22,13 +21,40 @@ hero:
 import { Card, CardGrid } from '@astrojs/starlight/components';
 import RecentArticles from '../../components/RecentArticles.astro';
 
-## Why AI Security?
-The rapid adoption of Large Language Models (LLMs) and Autonomous Agents has created a new attack surface that traditional cybersecurity was never built to handle. Unlike classic software, AI systems are **probabilistic**, not deterministic. This creates unique vulnerabilities where the "code" is actually natural language.
+<style>
+  /* Keeps the hero compact so news is visible on page load */
+  .hero {
+    padding-block: 2rem !important;
+  }
+  .hero img {
+    width: 260px !important;
+    height: auto !important;
+  }
+  .sl-markdown-content h1 {
+    font-size: var(--sl-text-h2) !important;
+  }
+</style>
 
-[Image comparing traditional cyber security vs AI security focus areas]
-
-## Latest News
+<section id="latest-news">
+## Latest Intelligence
+Our most recent research on LLM vulnerabilities, autonomous agents, and AI-driven cyber warfare.
 <RecentArticles />
+</section>
+
+---
+
+## Why AI Security?
+
+The rapid adoption of Large Language Models (LLMs) and Autonomous Agents has created a new attack surface that traditional cybersecurity was never built to handle. Unlike classic software, AI systems are **probabilistic**, not deterministic.
+
+![Comparison of Traditional vs AI Security Focus Areas](/ai_vs_traditional.png)
+
+### The New Frontier of Risk
+In an AI-driven world, a "malicious" input might look like a perfectly normal sentence. Our research focuses on three primary pillars:
+
+* **Semantic Vulnerabilities:** Attacks like *Prompt Injection* turning a trusted assistant into a "confused deputy."
+* **Data Integrity:** Preventing *Data Poisoning* and backdoors in training sets.
+* **Agentic Risk:** Securing autonomous users with high-level API privileges.
 
 ---
 
