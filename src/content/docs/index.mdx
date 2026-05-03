@@ -8,7 +8,7 @@ head:
 hero:
   tagline: Advanced Security Research for the Age of Agentic AI.
   image:
-    file: ../../assets/hero-shield.svg 
+    file: ../../assets/hero-shield.png 
   actions:
     - text: Latest Intelligence
       link: "#latest-news"
@@ -20,20 +20,6 @@ hero:
 
 import { Card, CardGrid } from '@astrojs/starlight/components';
 import RecentArticles from '../../components/RecentArticles.astro';
-
-<style>
-  /* Keeps the hero compact so news is visible on page load */
-  .hero {
-    padding-block: 2rem !important;
-  }
-  .hero img {
-    width: 260px !important;
-    height: auto !important;
-  }
-  .sl-markdown-content h1 {
-    font-size: var(--sl-text-h2) !important;
-  }
-</style>
 
 <section id="latest-news">
 ## Latest Intelligence
@@ -47,7 +33,7 @@ Our most recent research on LLM vulnerabilities, autonomous agents, and AI-drive
 
 The rapid adoption of Large Language Models (LLMs) and Autonomous Agents has created a new attack surface that traditional cybersecurity was never built to handle. Unlike classic software, AI systems are **probabilistic**, not deterministic.
 
-![Comparison of Traditional vs AI Security Focus Areas](/ai_vs_traditional.png)
+![Comparison of Traditional vs AI Security Focus Areas](../../assets/watermarked_img_10574161284952049386.png)
 
 ### The New Frontier of Risk
 In an AI-driven world, a "malicious" input might look like a perfectly normal sentence. Our research focuses on three primary pillars:

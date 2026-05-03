@@ -1,22 +1,24 @@
 /* src/styles/custom.css */
 
-/* Shrinks the massive Hero padding */
+/* Compact Hero for a News-Portal feel */
 .hero {
   padding-block: 2rem !important;
 }
 
-/* Downsizes the shield image */
 .hero img {
-  width: 280px !important;
+  width: 260px !important;
   height: auto !important;
 }
 
-/* Makes the main "Welcome" heading a more reasonable size */
-.hero .title {
+/* Ensure the main heading on the home page isn't too huge */
+.sl-markdown-content h1 {
   font-size: var(--sl-text-h2) !important;
 }
 
-/* Optional: Tighten up spacing in the main content */
-.sl-markdown-content > * + * {
-  margin-top: 1rem !important;
+/* Style the Infographic for better fit */
+img[src*="watermarked_img"] {
+  border: 1px solid var(--sl-color-gray-5);
+  border-radius: 8px;
+  margin-block: 2rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
 }
