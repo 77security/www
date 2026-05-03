@@ -1,69 +1,66 @@
 ---
 import { getCollection } from 'astro:content';
 
-const docs = await getCollection('docs');
+const posts = (await getCollection('docs', ({ id }) => {
+  return id.startsWith('blog/') || id.startsWith('ai-security/');
+})).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()).slice(0, 5);
 
-const recentPosts = docs
-  .filter(post => post.data.date) // only posts with date
-  .sort((a, b) => new Date(b.data.date) - new Date(a.data.date))
-  .slice(0, 3);
+// Helper function to find the og:image in the head array
+function getBanner(post) {
+  const ogImage = post.data.head?.find(h => h.attrs?.property === 'og:image');
+  return ogImage ? ogImage.attrs.content : '/default-banner.svg';
+}
 ---
 
-<div class="card-grid">
-  {recentPosts.map((post) => {
-    const url = `/${post.id}/`;
-
-    const displayDate = new Date(post.data.date).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    });
-
-    return (
-      <a href={url} class="not-content">
-        <article class="recent-card">
-          <p class="date-tag">{displayDate}</p>
-          <h3 class="title">{post.data.title}</h3>
-          <p class="description">{post.data.description}</p>
-        </article>
-      </a>
-    );
-  })}
+<div class="news-feed">
+  {posts.map((post) => (
+    <a href={`/${post.slug}/`} class="news-item">
+      <div class="news-image">
+        <img src={getBanner(post)} alt={post.data.title} />
+      </div>
+      
+      <div class="news-content">
+        <div class="news-meta">
+          <span class="news-author">By {post.data.author || '77 Security'}</span>
+          <span class="meta-divider">•</span>
+          <span class="news-date">
+            {post.data.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+          </span>
+        </div>
+        
+        <h3 class="news-title">{post.data.title}</h3>
+        <p class="news-abstract">{post.data.description}</p>
+      </div>
+    </a>
+  ))}
 </div>
 
 <style>
-  .recent-card {
-    padding: 1.5rem;
+  .news-feed { display: flex; flex-direction: column; gap: 2.5rem; }
+  .news-item { display: grid; grid-template-columns: 280px 1fr; gap: 1.5rem; text-decoration: none; color: inherit; }
+  
+  .news-image img {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    border-radius: 4px;
     border: 1px solid var(--sl-color-gray-5);
-    border-radius: 0.5rem;
-    background-color: var(--sl-color-bg-nav);
-    height: 100%;
-    transition: all 0.2s ease-in-out;
   }
-  .recent-card:hover {
-    border-color: var(--sl-color-accent) !important;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  }
-  .date-tag {
-    font-size: 0.8rem;
-    color: var(--sl-color-accent-high);
+
+  .news-meta { 
+    font-size: 0.8rem; 
+    color: var(--sl-color-accent-high); 
+    text-transform: uppercase; 
+    font-weight: 700;
     margin-bottom: 0.5rem;
-    font-weight: 600;
   }
-  .title {
-    margin: 0 !important;
-    font-size: 1.25rem !important;
-    color: var(--sl-color-white) !important;
-  }
-  .description {
-    font-size: 0.9rem !important;
-    margin-top: 0.5rem !important;
-    color: var(--sl-color-gray-3) !important;
-    line-height: 1.4;
-  }
-  /* Remove Starlight's default link styling */
-  .not-content {
-    text-decoration: none !important;
+  .meta-divider { margin: 0 0.5rem; color: var(--sl-color-gray-4); }
+  .news-author { color: var(--sl-color-white); }
+
+  .news-title { margin: 0 !important; font-size: 1.5rem !important; line-height: 1.2; }
+  .news-abstract { color: var(--sl-color-gray-3); font-size: 0.95rem; margin-top: 0.5rem; }
+
+  @media (max-width: 700px) {
+    .news-item { grid-template-columns: 1fr; }
   }
 </style>

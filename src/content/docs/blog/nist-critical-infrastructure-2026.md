@@ -14,6 +14,10 @@ head:
       content: Sentinel
 ---
 
+import ArticleHeader from '../../../components/ArticleHeader.astro';
+
+<ArticleHeader author={frontmatter.author} date={frontmatter.date} />
+
 On April 7, 2026, the National Institute of Standards and Technology (NIST) released a pivotal concept note expanding its **AI Risk Management Framework (AI RMF)** to address the growing role of Artificial Intelligence in **Critical Infrastructure (CI)**.
 
 This update signals a major shift in how governments and enterprises approach **AI security, safety, and governance**. In critical sectors such as energy, water, transportation, and healthcare, AI failures are no longer confined to data breaches—they can directly result in **physical disruption, economic damage, and risks to human safety**.

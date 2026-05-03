@@ -1,0 +1,56 @@
+---
+const { author, date } = Astro.props;
+const formattedDate = new Date(date).toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<div class="article-header-meta">
+  <div class="author-info">
+    <div class="avatar">
+      {author.charAt(0)}
+    </div>
+    <div>
+      <p class="label">Author</p>
+      <p class="name">{author}</p>
+    </div>
+  </div>
+  <div class="date-info">
+    <p class="label">Published</p>
+    <p class="name">{formattedDate}</p>
+  </div>
+</div>
+
+<style>
+  .article-header-meta {
+    display: flex;
+    gap: 3rem;
+    margin-top: -1rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--sl-color-gray-5);
+  }
+  .label { 
+    font-size: 0.75rem; 
+    text-transform: uppercase; 
+    color: var(--sl-color-gray-3); 
+    margin: 0 !important; 
+  }
+  .name { font-weight: 600; margin: 0 !important; color: var(--sl-color-white); }
+  .avatar {
+    width: 40px;
+    height: 40px;
+    background: var(--sl-color-accent-low);
+    color: var(--sl-color-accent-high);
+    border: 1px solid var(--sl-color-accent-high);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+  .author-info { display: flex; align-items: center; gap: 0.75rem; }
+</style>
