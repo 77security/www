@@ -1,4 +1,6 @@
 
+import __ASTRO_IMAGE_IMPORT_Z1ySnvG from "../../../assets/blog/asoc-paradigm-shift.png?astroContentImageFlag=&importer=src%2Fcontent%2Fdocs%2Fai-security%2Fautonomous-soc-2026-research.md";
+import __ASTRO_IMAGE_IMPORT_196Fh1 from "../../../assets/blog/asoc-reasoning-chain.png?astroContentImageFlag=&importer=src%2Fcontent%2Fdocs%2Fai-security%2Fautonomous-soc-2026-research.md";
 import __ASTRO_IMAGE_IMPORT_1RK6Yb from "../../assets/hero-shield.png?astroContentImageFlag=&importer=src%2Fcontent%2Fdocs%2Findex.mdx";
-export default new Map([["../../assets/hero-shield.png?astroContentImageFlag=&importer=src%2Fcontent%2Fdocs%2Findex.mdx", __ASTRO_IMAGE_IMPORT_1RK6Yb]]);
+export default new Map([["../../../assets/blog/asoc-paradigm-shift.png?astroContentImageFlag=&importer=src%2Fcontent%2Fdocs%2Fai-security%2Fautonomous-soc-2026-research.md", __ASTRO_IMAGE_IMPORT_Z1ySnvG], ["../../../assets/blog/asoc-reasoning-chain.png?astroContentImageFlag=&importer=src%2Fcontent%2Fdocs%2Fai-security%2Fautonomous-soc-2026-research.md", __ASTRO_IMAGE_IMPORT_196Fh1], ["../../assets/hero-shield.png?astroContentImageFlag=&importer=src%2Fcontent%2Fdocs%2Findex.mdx", __ASTRO_IMAGE_IMPORT_1RK6Yb]]);
 		
