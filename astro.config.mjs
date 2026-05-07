@@ -19,7 +19,7 @@ export default defineConfig({
       head: [
         {
           tag: 'meta',
-          attrs: { property: 'og:image', content: 'https://www.77security.com/77security.png' },
+          attrs: { property: 'og:image', content: 'https://77security.com/77security.png' },
         },
         {
           tag: 'meta',
@@ -42,18 +42,18 @@ export default defineConfig({
               {
                 '@type': 'Organization',
                 name: '77 Security',
-                url: 'https://www.77security.com',
-                logo: 'https://www.77security.com/favicon.svg',
+                url: 'https://77security.com',
+                logo: 'https://77security.com/favicon.svg',
                 description: 'AI security research firm specializing in LLM red teaming, prompt injection, adversarial ML, and securing AI-powered applications.',
                 sameAs: ['https://github.com/77security/'],
               },
               {
                 '@type': 'WebSite',
                 name: '77 Security',
-                url: 'https://www.77security.com',
+                url: 'https://77security.com',
                 potentialAction: {
                   '@type': 'SearchAction',
-                  target: 'https://www.77security.com/?q={search_term_string}',
+                  target: 'https://77security.com/?q={search_term_string}',
                   'query-input': 'required name=search_term_string',
                 },
               },
