@@ -7,10 +7,8 @@ head:
   - tag: meta
     attrs:
       property: og:image
-      content: https://vanguardcyberlabs.com/banners/openclaw-security-meta.png
+      content: https://77security.com/banners/openclaw-security-meta.png
 ---
-
-# The OpenClaw Vulnerabilities: Inside the “Claw Chain” Threatening AI Agent Frameworks
 
 The AI industry spent most of 2024 and 2025 focused on the risks of large language models themselves:
 - Hallucinations
